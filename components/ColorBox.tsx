@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { Color } from '../types';
 
-export default function ColorBox({ colorName, hexCode }: Color) {
+export default function ColorBox({ colorName, hexCode, isHorizontal }: Props) {
   let textColor: string;
   // Black or white text
   if (parseInt(hexCode.split('#')[1], 16) > 0xffffff / 1.1) {
@@ -19,11 +19,15 @@ export default function ColorBox({ colorName, hexCode }: Color) {
     backgroundColor: hexCode,
   };
 
+  const styleClass = isHorizontal ? styles.boxHoriz : styles.box;
+
   return (
-    <View style={[styles.box, backgoroundColor]}>
-      <Text style={boxText}>
-        {colorName}: {hexCode}
-      </Text>
+    <View style={[styleClass, backgoroundColor]}>
+      {!isHorizontal ? (
+        <Text style={boxText}>
+          {colorName}: {hexCode}
+        </Text>
+      ) : null}
     </View>
   );
 }
@@ -36,4 +40,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
   },
+  boxHoriz: {
+    flex: 1,
+    marginLeft: 10,
+  },
 });
+
+type Props = Color & {
+  isHorizontal: boolean;
+};
