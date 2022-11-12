@@ -64,6 +64,7 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   };
 
   const handleGoogleLogin = () => {
+    // TODO: Login with Google not working
     console.log('Google Signin');
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((userCredential) => {

@@ -10,16 +10,14 @@ const EventItem = ({ event }: { event: Event }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles.shadow]}>
       <Image source={{ uri: event.imageUrl }} style={styles.image} />
       <View style={styles.eventInfo}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>{event.title}</Text>
           <Text style={styles.location}>{event.location}</Text>
         </View>
-        {/* <View style={styles.dateContainer}> */}
         <Text style={styles.date}>{getDateNthMonth(event.timestamp)}</Text>
-        {/* </View> */}
       </View>
     </View>
   );
@@ -45,8 +43,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   textContainer: {
-    borderRightWidth: 1,
+    flex: 2,
     padding: 5,
+    paddingRight: 10,
+    borderRightWidth: 1,
+    borderRadius: 10,
   },
   title: {
     fontSize: 16,
@@ -55,14 +56,16 @@ const styles = StyleSheet.create({
   location: {
     fontSize: 12,
   },
-  dateContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   date: {
     flex: 1,
     textAlign: 'center',
     alignSelf: 'center',
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    elevation: 10,
   },
 });
