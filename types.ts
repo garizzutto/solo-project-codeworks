@@ -1,9 +1,15 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 
 export type StackTypeParamList = {
   LoginScreen: {};
   HomeScreen: {
     user: User;
+  };
+  EventScreen: {
+    user: User;
+    event: Event;
   };
 };
 
@@ -15,6 +21,10 @@ export type PropsHomeScreen = NativeStackScreenProps<
   StackTypeParamList,
   'HomeScreen'
 >;
+export type PropsEventScreen = NativeStackScreenProps<
+  StackTypeParamList,
+  'EventScreen'
+>;
 
 export type User = {
   email: string;
@@ -24,9 +34,11 @@ export type User = {
 export type Event = {
   imageUrl: string;
   title: string;
-  descripion?: string;
+  description?: string;
   attendees?: Array<User>;
   timestamp: string;
   location: string;
   id: string;
 };
+
+export type IconName = React.ComponentProps<typeof FontAwesome>['name'];

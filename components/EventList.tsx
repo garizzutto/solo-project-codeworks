@@ -3,20 +3,16 @@ import React from 'react';
 import EventItem from './EventItem';
 import { Event } from '../types';
 
-const EventList = ({
-  recommendedEvents,
-  title,
-}: {
-  recommendedEvents: Array<Event>;
-  title: string;
-}) => {
+const EventList = ({ recommendedEvents, title, handleEventClick }: Props) => {
   return (
     <View>
       <Text style={styles.title}>{title}</Text>
       <FlatList
         horizontal={true}
         data={recommendedEvents}
-        renderItem={({ item }) => <EventItem event={item} />}
+        renderItem={({ item }) => (
+          <EventItem event={item} handleEventClick={handleEventClick} />
+        )}
       />
     </View>
   );
@@ -32,3 +28,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
+
+type Props = {
+  recommendedEvents: Array<Event>;
+  title: string;
+  handleEventClick: (eventClicked: Event) => void;
+};

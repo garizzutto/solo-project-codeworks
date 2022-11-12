@@ -2,24 +2,27 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { Event } from '../types';
 import moment from 'moment';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const EventItem = ({ event }: { event: Event }) => {
+const EventItem = ({ event, handleEventClick }: Props) => {
   const getDateNthMonth = (date: string) => {
     const parsed = moment(date).format('MMM Do');
     return parsed;
   };
 
   return (
-    <View style={[styles.container, styles.shadow]}>
-      <Image source={{ uri: event.imageUrl }} style={styles.image} />
-      <View style={styles.eventInfo}>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>{event.title}</Text>
-          <Text style={styles.location}>{event.location}</Text>
+    <TouchableOpacity onPress={() => handleEventClick(event)}>
+      <View style={[styles.container, styles.shadow]}>
+        <Image source={{ uri: event.imageUrl }} style={styles.image} />
+        <View style={styles.eventInfo}>
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>{event.title}</Text>
+            <Text style={styles.location}>{event.location}</Text>
+          </View>
+          <Text style={styles.date}>{getDateNthMonth(event.timestamp)}</Text>
         </View>
-        <Text style={styles.date}>{getDateNthMonth(event.timestamp)}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -69,3 +72,8 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
 });
+
+type Props = {
+  event: Event;
+  handleEventClick: (eventClicked: Event) => void;
+};

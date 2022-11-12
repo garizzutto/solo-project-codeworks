@@ -1,6 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { FontAwesome } from '@expo/vector-icons';
+import Icons from './Icons';
 
 const FooterIcon = ({ tabName, tab, icon, setTab }: Props) => {
   return (
@@ -8,8 +9,8 @@ const FooterIcon = ({ tabName, tab, icon, setTab }: Props) => {
       <View
         style={[styles.line, tab === tabName ? styles.selectedLine : null]}
       />
-      <View style={styles.icons}>
-        <FontAwesome name={icon} size={24} color="white" />
+      <View style={[styles.flex1, styles.iconContainer]}>
+        <Icons icon={icon} />
       </View>
     </TouchableOpacity>
   );
@@ -22,11 +23,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
   },
-  icons: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   line: {
     width: '100%',
     height: 3,
@@ -37,6 +33,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
+  },
+  iconContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

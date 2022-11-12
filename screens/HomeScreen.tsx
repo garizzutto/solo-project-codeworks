@@ -2,17 +2,24 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import Profile from '../components/Profile';
 import Home from '../components/Home';
-import { PropsHomeScreen } from '../types';
+import { Event, PropsHomeScreen } from '../types';
 import FooterIcon from '../components/FooterIcon';
 
-const HomeScreen = ({ route }: PropsHomeScreen) => {
+const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
   const [tab, setTab] = useState('home');
+
+  const handleEventClick = (eventClicked: Event) => {
+    navigation.navigate('EventScreen', {
+      event: eventClicked,
+      user: route.params.user,
+    });
+  };
 
   const getSelectedTab = () => {
     if (tab === 'profile') {
       return <Profile user={route.params.user} />;
     } else {
-      return <Home />;
+      return <Home handleEventClick={handleEventClick} />;
     }
   };
 
@@ -78,21 +85,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-  },
-  icons: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  line: {
-    width: '100%',
-    height: 3,
-    backgroundColor: '#727273',
-    marginTop: 0,
-  },
-  selectedLine: {
-    backgroundColor: '#fff',
-    borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 5,
   },
 });
