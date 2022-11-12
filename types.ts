@@ -24,9 +24,9 @@ export type User = {
 export type Event = {
   imageUrl: string;
   title: string;
-  descripion: string;
-  attendees: Array<User>;
-  timestamp: string; //parse to date later
+  descripion?: string;
+  attendees?: Array<User>;
+  timestamp: string;
   location: string;
   id: string;
 };

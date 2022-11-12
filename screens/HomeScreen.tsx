@@ -1,13 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
-import { FontAwesome } from '@expo/vector-icons';
 import Profile from '../components/Profile';
 import Home from '../components/Home';
 import { PropsHomeScreen } from '../types';
-
-// const Stack = createStackNavigator();
+import FooterIcon from '../components/FooterIcon';
 
 const HomeScreen = ({ route }: PropsHomeScreen) => {
   const [tab, setTab] = useState('home');
@@ -27,36 +23,24 @@ const HomeScreen = ({ route }: PropsHomeScreen) => {
       </View>
       <View style={styles.flex1}>{getSelectedTab()}</View>
       <View style={[styles.footer, styles.shadow]}>
-        <TouchableOpacity style={styles.flex1} onPress={() => setTab('home')}>
-          <View
-            style={[styles.line, tab === 'home' ? styles.selectedLine : null]}
-          />
-          <View style={styles.icons}>
-            <FontAwesome name="home" size={24} color="white" />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.flex1} onPress={() => setTab('search')}>
-          <View
-            style={[styles.line, tab === 'search' ? styles.selectedLine : null]}
-          />
-          <View style={styles.icons}>
-            <FontAwesome name="search" size={24} color="white" />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.flex1}
-          onPress={() => setTab('profile')}
-        >
-          <View
-            style={[
-              styles.line,
-              tab === 'profile' ? styles.selectedLine : null,
-            ]}
-          />
-          <View style={styles.icons}>
-            <FontAwesome name="user" size={24} color="white" />
-          </View>
-        </TouchableOpacity>
+        <FooterIcon
+          setTab={() => setTab('home')}
+          icon={'home'}
+          tabName={'home'}
+          tab={tab}
+        />
+        <FooterIcon
+          setTab={() => setTab('search')}
+          icon={'search'}
+          tabName={'search'}
+          tab={tab}
+        />
+        <FooterIcon
+          setTab={() => setTab('profile')}
+          icon={'user'}
+          tabName={'profile'}
+          tab={tab}
+        />
       </View>
     </View>
   );
