@@ -87,7 +87,7 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles.flex1]}>
       <View style={styles.inputContainer}>
         <Image source={require('../assets/icon.png')} style={styles.logo} />
         <TextInput
@@ -111,19 +111,11 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
               : errorMessage}
           </Text>
         )}
-        <TouchableOpacity
-          onPress={handleLogin}
-          style={[styles.button, styles.login]}
-        >
-          <Text style={[styles.buttonText, styles.login]}>Login</Text>
+        <TouchableOpacity onPress={handleLogin} style={styles.container}>
+          <Text style={[styles.button, styles.login]}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleRegister}
-          style={[styles.button, styles.register]}
-        >
-          <Text style={[styles.buttonText, styles.registerColor]}>
-            Register
-          </Text>
+        <TouchableOpacity onPress={handleRegister} style={styles.container}>
+          <Text style={[styles.button, styles.register]}>Register</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.line} />
@@ -145,9 +137,11 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+  flex1: {
+    flex: 1,
+  },
   container: {
     width: '100%',
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#e6f3fc',
@@ -187,10 +181,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
-  },
-  buttonText: {
     fontWeight: 'bold',
     fontSize: 18,
+    textAlign: 'center',
   },
   login: {
     backgroundColor: '#0741AD',
@@ -201,7 +194,6 @@ const styles = StyleSheet.create({
     borderColor: '#0741AD',
     backgroundColor: 'white',
   },
-  registerColor: { color: '#0741AD' },
   line: {
     width: '70%',
     height: 1,

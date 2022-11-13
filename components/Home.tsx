@@ -35,14 +35,16 @@ const Home = ({ handleEventClick }: Props) => {
   return (
     <ScrollView style={styles.container}>
       <EventList
-        recommendedEvents={recommendedEvents}
+        events={recommendedEvents}
         title={'Recomended events'}
         handleEventClick={handleEventClick}
+        horizontal={true}
       />
       <EventList
-        recommendedEvents={nextEvents}
+        events={nextEvents}
         title={'Next events'}
         handleEventClick={handleEventClick}
+        horizontal={true}
       />
     </ScrollView>
   );

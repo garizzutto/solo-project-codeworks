@@ -3,16 +3,28 @@ import React from 'react';
 import EventItem from './EventItem';
 import { Event } from '../types';
 
-const EventList = ({ recommendedEvents, title, handleEventClick }: Props) => {
+const EventList = ({
+  events,
+  title,
+  handleEventClick,
+  horizontal,
+  listHeaderComponent,
+}: Props) => {
   return (
-    <View>
-      <Text style={styles.title}>{title}</Text>
+    <View style={styles.container}>
+      {title ? <Text style={styles.title}>{title}</Text> : null}
       <FlatList
-        horizontal={true}
-        data={recommendedEvents}
+        horizontal={horizontal}
+        data={events}
+        stickyHeaderIndices={listHeaderComponent ? [0] : undefined}
         renderItem={({ item }) => (
-          <EventItem event={item} handleEventClick={handleEventClick} />
+          <EventItem
+            event={item}
+            handleEventClick={handleEventClick}
+            horizontal={horizontal}
+          />
         )}
+        ListHeaderComponent={listHeaderComponent ? listHeaderComponent : null}
       />
     </View>
   );
@@ -27,10 +39,18 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
   },
+  container: {
+    width: '100%',
+    padding: 5,
+  },
 });
 
 type Props = {
-  recommendedEvents: Array<Event>;
-  title: string;
+  events: Array<Event>;
+  title?: string;
   handleEventClick: (eventClicked: Event) => void;
+  horizontal: boolean;
+  listHeaderComponent?: React.ComponentProps<
+    typeof FlatList
+  >['ListHeaderComponent'];
 };

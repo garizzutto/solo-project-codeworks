@@ -3,23 +3,40 @@ import React from 'react';
 import { Event } from '../types';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useFonts } from 'expo-font';
 
-const EventItem = ({ event, handleEventClick }: Props) => {
+const EventItem = ({ event, handleEventClick, horizontal }: Props) => {
+  const [loaded] = useFonts({
+    'Kanit-Regular': require('../assets/fonts/Kanit/Kanit-Regular.ttf'),
+    'Kanit-Bold': require('../assets/fonts/Kanit/Kanit-Bold.ttf'),
+  });
+
   const getDateNthMonth = (date: string) => {
     const parsed = moment(date).format('MMM Do');
     return parsed;
   };
 
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <TouchableOpacity onPress={() => handleEventClick(event)}>
-      <View style={[styles.container, styles.shadow]}>
+      <View
+        style={[
+          horizontal ? styles.horizontalContainer : styles.verticalContainer,
+          styles.shadow,
+        ]}
+      >
         <Image source={{ uri: event.imageUrl }} style={styles.image} />
         <View style={styles.eventInfo}>
           <View style={styles.textContainer}>
-            <Text style={styles.title}>{event.title}</Text>
-            <Text style={styles.location}>{event.location}</Text>
+            <Text style={[styles.title, styles.fontBold]}>{event.title}</Text>
+            <Text style={[styles.location, styles.font]}>{event.location}</Text>
           </View>
-          <Text style={styles.date}>{getDateNthMonth(event.timestamp)}</Text>
+          <Text style={[styles.date, styles.font]}>
+            {getDateNthMonth(event.timestamp)}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -29,13 +46,19 @@ const EventItem = ({ event, handleEventClick }: Props) => {
 export default EventItem;
 
 const styles = StyleSheet.create({
-  container: {
+  horizontalContainer: {
     height: 250,
     width: 300,
-    marginLeft: 10,
+    margin: 10,
+  },
+  verticalContainer: {
+    height: 350,
+    width: '100%',
+    marginVertical: 10,
   },
   image: {
     flex: 1,
+    resizeMode: 'cover',
   },
   eventInfo: {
     position: 'absolute',
@@ -54,7 +77,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: 'bold',
   },
   location: {
     fontSize: 12,
@@ -71,9 +93,16 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     elevation: 10,
   },
+  font: {
+    fontFamily: 'Kanit-Regular',
+  },
+  fontBold: {
+    fontFamily: 'Kanit-Bold',
+  },
 });
 
 type Props = {
   event: Event;
   handleEventClick: (eventClicked: Event) => void;
+  horizontal: boolean;
 };

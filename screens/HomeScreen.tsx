@@ -4,6 +4,7 @@ import Profile from '../components/Profile';
 import Home from '../components/Home';
 import { Event, PropsHomeScreen } from '../types';
 import FooterIcon from '../components/FooterIcon';
+import Search from '../components/Search';
 
 const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
   const [tab, setTab] = useState('home');
@@ -18,6 +19,11 @@ const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
   const getSelectedTab = () => {
     if (tab === 'profile') {
       return <Profile user={route.params.user} />;
+    }
+    if (tab === 'search') {
+      return (
+        <Search handleEventClick={handleEventClick} user={route.params.user} />
+      );
     } else {
       return <Home handleEventClick={handleEventClick} />;
     }
@@ -38,7 +44,7 @@ const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
         />
         <FooterIcon
           setTab={() => setTab('search')}
-          icon={'search'}
+          icon={'calendar'}
           tabName={'search'}
           tab={tab}
         />

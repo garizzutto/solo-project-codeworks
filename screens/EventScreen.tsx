@@ -1,4 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { PropsEventScreen, User } from '../types';
 import Icons from '../components/Icons';
@@ -70,7 +77,7 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
         source={{ uri: route.params.event.imageUrl }}
         style={styles.image}
       />
-      <View style={styles.bodyContainer}>
+      <ScrollView style={styles.bodyContainer}>
         <TouchableOpacity onPress={toggleAttending}>
           <View style={styles.attendContainer}>
             <View style={[styles.attendButton]}>
@@ -104,7 +111,7 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
         <Text style={styles.description}>{description}</Text>
         <Text style={[styles.description, styles.bold]}>Who's attending?</Text>
         <AttendeeList attendeeList={attendees.slice(0, 5)} />
-      </View>
+      </ScrollView>
     </View>
   );
 };
