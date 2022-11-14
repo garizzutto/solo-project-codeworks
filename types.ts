@@ -11,6 +11,9 @@ export type StackTypeParamList = {
     user: User;
     event: Event;
   };
+  NewEventScreen: {
+    user: User;
+  };
 };
 
 export type PropsLoginScreen = NativeStackScreenProps<
@@ -25,6 +28,10 @@ export type PropsEventScreen = NativeStackScreenProps<
   StackTypeParamList,
   'EventScreen'
 >;
+export type PropsNewEventScreen = NativeStackScreenProps<
+  StackTypeParamList,
+  'NewEventScreen'
+>;
 
 export type User = {
   email: string;
@@ -35,9 +42,10 @@ export type Event = {
   imageUrl: string;
   title: string;
   description?: string;
-  attendees?: Array<User>;
+  attendees?: Array<string>;
   timestamp: string;
   location: string;
+  creator: string;
   id: string;
 };
 

@@ -1,20 +1,19 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { User } from '../types';
 
 const PROFILE_PICTURE =
   'https://www.biography.com/.image/t_share/MTQzMjgyNDgwNjIxODIzNTU5/jennifer-lawrence_gettyimages-626382596jpg.jpg';
 
-const AttendeeItem = ({ user }: { user: User }) => {
+const AttendeeItem = ({ uid }: { uid: string }) => {
   const [picture, setPicture] = useState('');
   const [name, setName] = useState('');
 
   useEffect(() => {
     // TODO: API call to get picture and name
-    console.log(user);
+    console.log(uid);
     setPicture(PROFILE_PICTURE);
     setName('Jennifer Lawrence');
-  }, [user]);
+  }, [uid]);
 
   return (
     <View style={styles.container}>

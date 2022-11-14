@@ -17,6 +17,7 @@ const EventList = ({
         horizontal={horizontal}
         data={events}
         stickyHeaderIndices={listHeaderComponent ? [0] : undefined}
+        showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <EventItem
             event={item}

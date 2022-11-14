@@ -7,26 +7,27 @@ import {
   View,
 } from 'react-native';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { PropsEventScreen, User } from '../types';
+import { PropsEventScreen } from '../types';
 import Icons from '../components/Icons';
 import EventDetails from '../components/EventDetails';
 import moment from 'moment';
 import AttendeeList from '../components/AttendeeList';
 
-const EVENT_DETAILS: Array<{ description: string; attendees: Array<User> }> = [
-  {
-    description:
-      'Com uma área verde de 1.584.000m², é um dos maiores circuitos culturais do mundo, com museus e auditórios de Oscar Niemeyer',
-    attendees: [
-      { email: 'g@a.com', uid: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2' },
-      { email: 'g@a.com', uid: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2' },
-      { email: 'g@a.com', uid: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2' },
-      { email: 'g@a.com', uid: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2' },
-      { email: 'g@a.com', uid: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2' },
-      { email: 'g@a.com', uid: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2' },
-    ],
-  },
-];
+const EVENT_DETAILS: Array<{ description: string; attendees: Array<string> }> =
+  [
+    {
+      description:
+        'Com uma área verde de 1.584.000m², é um dos maiores circuitos culturais do mundo, com museus e auditórios de Oscar Niemeyer',
+      attendees: [
+        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
+        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
+        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
+        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
+        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
+        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
+      ],
+    },
+  ];
 
 const EventScreen = ({ navigation, route }: PropsEventScreen) => {
   const { event, user } = route.params;
@@ -50,7 +51,7 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
   useEffect(() => {
     // TODO: API call to get atendees
     console.log('Getting atendees');
-    setIsAttending(attendees.some((u) => u.uid === user.uid));
+    setIsAttending(attendees.some((uid) => uid === user.uid));
     setNumberAttendees(attendees.length);
   }, [attendees, user]);
 
@@ -58,16 +59,16 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
     const parsed =
       moment(date).format('MMM DD YYYY') +
       ' | Starting at ' +
-      moment(date).format('hh:mm');
+      moment(date).format('hh:mm A');
     return parsed;
   };
 
   const toggleAttending = () => {
     // TODO: API call to set as attending or not
     if (isAttending) {
-      setAttendees(attendees.filter((u) => u.uid !== user.uid));
+      setAttendees(attendees.filter((uid) => uid !== user.uid));
     } else {
-      setAttendees([...attendees, user]);
+      setAttendees([...attendees, user.uid]);
     }
   };
 

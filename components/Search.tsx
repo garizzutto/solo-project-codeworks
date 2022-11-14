@@ -11,6 +11,7 @@ const EVENTS: Array<Event> = [
     title: 'Ibirapuera Park',
     location: 'Ibirapuera, São Paulo - SP',
     timestamp: '2022-11-15T11:30:00',
+    creator: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
     id: '1',
   },
   {
@@ -19,6 +20,7 @@ const EVENTS: Array<Event> = [
     title: 'Ibirapuera Park',
     location: 'Ibirapuera, São Paulo - SP',
     timestamp: '2022-11-15T11:30:00',
+    creator: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
     id: '2',
   },
   {
@@ -27,6 +29,7 @@ const EVENTS: Array<Event> = [
     title: 'Ibirapuera Park',
     location: 'Ibirapuera, São Paulo - SP',
     timestamp: '2022-11-15T11:30:00',
+    creator: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
     id: '3',
   },
   {
@@ -35,6 +38,7 @@ const EVENTS: Array<Event> = [
     title: 'Ibirapuera Park',
     location: 'Ibirapuera, São Paulo - SP',
     timestamp: '2022-11-15T11:30:00',
+    creator: 'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
     id: '4',
   },
 ];

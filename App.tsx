@@ -4,14 +4,26 @@ import { StatusBar } from 'expo-status-bar';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  StackHeaderProps,
+} from '@react-navigation/stack';
 import { StackTypeParamList } from './types';
 import EventScreen from './screens/EventScreen';
 import { StyleSheet } from 'react-native';
+import NewEventScreen from './screens/NewEventScreen';
+import Header from './components/Header';
+import Icons from './components/Icons';
 
 const Stack = createStackNavigator<StackTypeParamList>();
 
 export default function App() {
+  const headerBackImage = () => (
+    <Icons icon="angle-left" color="black" size={30} />
+  );
+
+  const header = (props: StackHeaderProps) => <Header {...props} />;
+
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
@@ -24,7 +36,9 @@ export default function App() {
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
-          options={{ headerShown: false }}
+          options={{
+            header: header,
+          }}
         />
         <Stack.Screen
           name="EventScreen"
@@ -34,6 +48,14 @@ export default function App() {
             headerTitle: 'Title',
             headerTitleStyle: styles.eventHeaderTitle,
             headerTitleAlign: 'center',
+            headerBackImage: headerBackImage,
+          }}
+        />
+        <Stack.Screen
+          name="NewEventScreen"
+          component={NewEventScreen}
+          options={{
+            header: header,
           }}
         />
       </Stack.Navigator>

@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import Profile from '../components/Profile';
 import Home from '../components/Home';
 import { Event, PropsHomeScreen } from '../types';
 import FooterIcon from '../components/FooterIcon';
 import Search from '../components/Search';
+import Icons from '../components/Icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
   const [tab, setTab] = useState('home');
@@ -12,6 +14,12 @@ const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
   const handleEventClick = (eventClicked: Event) => {
     navigation.navigate('EventScreen', {
       event: eventClicked,
+      user: route.params.user,
+    });
+  };
+
+  const handleNewEventClick = () => {
+    navigation.navigate('NewEventScreen', {
       user: route.params.user,
     });
   };
@@ -31,10 +39,14 @@ const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
 
   return (
     <View style={styles.flex1}>
-      <View style={[styles.header, styles.shadow]}>
-        <Text style={styles.title}>Where2GO</Text>
-      </View>
       <View style={styles.flex1}>{getSelectedTab()}</View>
+      {tab !== 'profile' ? (
+        <View style={styles.addEvent}>
+          <TouchableOpacity onPress={handleNewEventClick}>
+            <Icons icon="calendar-plus-o" />
+          </TouchableOpacity>
+        </View>
+      ) : null}
       <View style={[styles.footer, styles.shadow]}>
         <FooterIcon
           setTab={() => setTab('home')}
@@ -66,24 +78,24 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
   },
-  header: {
-    height: '10%',
-    backgroundColor: '#0741AD',
-    alignItems: 'center',
-  },
-  title: {
-    color: '#fff',
-    fontSize: 20,
-    marginTop: 'auto',
-    marginBottom: 15,
-    fontWeight: 'bold',
-  },
   shadow: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 1,
     elevation: 10,
+  },
+  addEvent: {
+    backgroundColor: '#0741AD',
+    width: 60,
+    height: 60,
+    borderRadius: 40,
+    position: 'absolute',
+    bottom: '7%',
+    right: 0,
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   footer: {
     height: '7%',

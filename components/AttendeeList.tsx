@@ -1,14 +1,14 @@
 import { FlatList } from 'react-native';
 import React from 'react';
-import { User } from '../types';
 import AtendeeItem from './AttendeeItem';
 
-const AttendeeList = ({ attendeeList }: { attendeeList: Array<User> }) => {
+const AttendeeList = ({ attendeeList }: { attendeeList: Array<string> }) => {
   return (
     <FlatList
       data={attendeeList}
       horizontal={true}
-      renderItem={({ item }) => <AtendeeItem user={item} />}
+      showsHorizontalScrollIndicator={false}
+      renderItem={({ item }) => <AtendeeItem uid={item} />}
     />
   );
 };

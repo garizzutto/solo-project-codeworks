@@ -2,10 +2,14 @@ import { StyleSheet, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
 
-const Icons = ({ icon, color }: Props) => {
+const Icons = ({ icon, color, size }: Props) => {
   return (
     <View style={styles.icons}>
-      <FontAwesome name={icon} size={24} color={color ? color : 'white'} />
+      <FontAwesome
+        name={icon}
+        size={size ? size : 24}
+        color={color ? color : 'white'}
+      />
     </View>
   );
 };
@@ -23,4 +27,5 @@ const styles = StyleSheet.create({
 type Props = {
   icon: React.ComponentProps<typeof FontAwesome>['name'];
   color?: string;
+  size?: number;
 };
