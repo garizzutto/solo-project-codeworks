@@ -3,22 +3,12 @@ import React from 'react';
 import { Event } from '../types';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useFonts } from 'expo-font';
 
 const EventItem = ({ event, handleEventClick, horizontal }: Props) => {
-  const [loaded] = useFonts({
-    'Kanit-Regular': require('../assets/fonts/Kanit/Kanit-Regular.ttf'),
-    'Kanit-Bold': require('../assets/fonts/Kanit/Kanit-Bold.ttf'),
-  });
-
   const getDateNthMonth = (date: string) => {
     const parsed = moment(date).format('MMM Do');
     return parsed;
   };
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <TouchableOpacity onPress={() => handleEventClick(event)}>

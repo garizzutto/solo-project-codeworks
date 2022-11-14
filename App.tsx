@@ -14,6 +14,7 @@ import { StyleSheet } from 'react-native';
 import NewEventScreen from './screens/NewEventScreen';
 import Header from './components/Header';
 import Icons from './components/Icons';
+import { useFonts } from 'expo-font';
 
 const Stack = createStackNavigator<StackTypeParamList>();
 
@@ -23,6 +24,15 @@ export default function App() {
   );
 
   const header = (props: StackHeaderProps) => <Header {...props} />;
+
+  const [loaded] = useFonts({
+    'Kanit-Regular': require('./assets/fonts/Kanit/Kanit-Regular.ttf'),
+    'Kanit-Bold': require('./assets/fonts/Kanit/Kanit-Bold.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
@@ -66,5 +76,6 @@ export default function App() {
 const styles = StyleSheet.create({
   eventHeaderTitle: {
     fontSize: 30,
+    fontFamily: 'Kanit-Regular',
   },
 });

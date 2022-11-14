@@ -158,11 +158,12 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   bold: {
-    fontWeight: 'bold',
+    fontFamily: 'Kanit-Bold',
   },
   description: {
     fontSize: 20,
     padding: 5,
     width: '100%',
+    fontFamily: 'Kanit-Regular',
   },
 });

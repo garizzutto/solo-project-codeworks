@@ -91,21 +91,29 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
       <View style={styles.inputContainer}>
         <Image source={require('../assets/icon.png')} style={styles.logo} />
         <TextInput
-          style={[styles.input, errorMessage === '' ? null : styles.inputError]}
+          style={[
+            styles.input,
+            styles.font,
+            errorMessage === '' ? null : styles.inputError,
+          ]}
           placeholder="Email"
           keyboardType="email-address"
           value={email}
           onChangeText={(value) => setEmail(value)}
         />
         <TextInput
-          style={[styles.input, errorMessage === '' ? null : styles.inputError]}
+          style={[
+            styles.input,
+            styles.font,
+            errorMessage === '' ? null : styles.inputError,
+          ]}
           placeholder="Password"
           secureTextEntry
           value={password}
           onChangeText={(value) => setPassword(value)}
         />
         {errorMessage === '' || (
-          <Text style={styles.validationEmail}>
+          <Text style={[styles.validationEmail, styles.font]}>
             {password === '' || email === ''
               ? 'Email and password cannot be empty'
               : errorMessage}
@@ -181,7 +189,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
-    fontWeight: 'bold',
+    fontFamily: 'Kanit-Bold',
     fontSize: 18,
     textAlign: 'center',
   },
@@ -220,5 +228,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     color: '#00a1f1',
+  },
+  font: {
+    fontFamily: 'Kanit-Regular',
   },
 });

@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Kanit-Regular',
   },
   formContainer: {
     backgroundColor: '#e6f3fc',
@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
     width: '80%',
     marginTop: 10,
     borderRadius: 10,
+    fontFamily: 'Kanit-Regular',
   },
   button: {
     width: '70%',
@@ -237,12 +238,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
-    fontWeight: 'bold',
     fontSize: 18,
     textAlign: 'center',
     backgroundColor: '#0741AD',
     color: 'white',
     height: 50,
+    fontFamily: 'Kanit-Bold',
   },
   container: {
     width: '100%',
@@ -255,7 +256,7 @@ const styles = StyleSheet.create({
   },
   white: {
     color: '#fff',
-    fontWeight: 'bold',
+    fontFamily: 'Kanit-Bold',
     fontSize: 18,
   },
   image: {

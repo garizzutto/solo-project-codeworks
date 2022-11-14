@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
     flex: 1,
+    fontFamily: 'Kanit-Regular',
   },
   iconContainer: {
     alignSelf: 'flex-end',

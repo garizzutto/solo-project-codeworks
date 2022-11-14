@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     color: '#223a66',
     marginTop: 10,
     marginLeft: 10,
+    fontFamily: 'Kanit-Regular',
   },
   container: {
     width: '100%',

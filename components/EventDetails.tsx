@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 5,
+    fontFamily: 'Kanit-Regular',
   },
 });
 

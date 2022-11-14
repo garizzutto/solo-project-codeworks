@@ -32,7 +32,7 @@ const Profile = ({ user }: { user: User }) => {
       <View style={styles.personalData}>
         <View style={styles.infoContainer}>
           <TextInput
-            style={styles.info}
+            style={[styles.info, styles.font]}
             placeholder="Name"
             value={name}
             onChangeText={(value) => setName(value)}
@@ -40,14 +40,14 @@ const Profile = ({ user }: { user: User }) => {
         </View>
         <View style={styles.infoContainer}>
           <TextInput
-            style={styles.info}
+            style={[styles.info, styles.font]}
             placeholder="Email"
             value={user.email}
             editable={false}
           />
         </View>
         <TouchableOpacity style={styles.personalData} onPress={handleSave}>
-          <Text style={styles.save}>Save</Text>
+          <Text style={[styles.save, styles.font]}>Save</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -101,5 +101,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
     padding: 5,
+  },
+  font: {
+    fontFamily: 'Kanit-Regular',
   },
 });

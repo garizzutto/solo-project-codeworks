@@ -21,7 +21,9 @@ const AttendeeItem = ({ uid }: { uid: string }) => {
         source={picture !== '' ? { uri: picture } : {}}
         style={styles.image}
       />
-      <Text numberOfLines={1}>{name}</Text>
+      <Text numberOfLines={1} style={styles.font}>
+        {name}
+      </Text>
     </View>
   );
 };
@@ -41,5 +43,8 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     borderWidth: 3,
     borderColor: '#fff',
+  },
+  font: {
+    fontFamily: 'Kanit-Regular',
   },
 });
