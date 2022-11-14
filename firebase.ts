@@ -1,6 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { GoogleAuthProvider, initializeAuth } from 'firebase/auth';
+import {
+  browserPopupRedirectResolver,
+  GoogleAuthProvider,
+  initializeAuth,
+} from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getReactNativePersistence } from 'firebase/auth/react-native';
 import { getStorage } from 'firebase/storage';
@@ -23,6 +27,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
+  popupRedirectResolver: browserPopupRedirectResolver,
 });
 const provider = new GoogleAuthProvider();
 const storage = getStorage(app);

@@ -8,10 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { auth } from '../firebase';
+import { auth, provider } from '../firebase';
 import {
   createUserWithEmailAndPassword,
-  GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
   UserCredential,
@@ -25,33 +24,20 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [result, setResult] = useState<null | UserCredential>(null);
+  // const [result, setResult] = useState<null | UserCredential>(null);
 
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setErrorMessage('');
-        const user = {
-          email: userCredential.user.email ? userCredential.user.email : '',
-          uid: userCredential.user.uid,
-        };
-        navigation.replace('HomeScreen', { user });
-      })
-      .catch(() => {
+      .then(loginSuccessful)
+      .catch((error) => {
+        console.log(error);
         setErrorMessage('Wrong email or password');
       });
   };
 
   const handleRegister = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setErrorMessage('');
-        const user = {
-          email: userCredential.user.email ? userCredential.user.email : '',
-          uid: userCredential.user.uid,
-        };
-        navigation.replace('HomeScreen', { user });
-      })
+      .then(loginSuccessful)
       .catch((error) => {
         console.log('Error register: ', error);
         const message = error.message.split('Firebase: ')[1].split(' (')[0];
@@ -66,24 +52,20 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   const handleGoogleLogin = () => {
     // TODO: Login with Google not working
     console.log('Google Signin');
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then((userCredential) => {
-      setResult(userCredential);
-      console.log(result);
-    });
-    // .then((result) => {
-    //   // This gives you a Google Access Token. You can use it to access the Google API.
-    //   const credential = GoogleAuthProvider.credentialFromResult(result);
-    //   const token = credential?.accessToken;
-    //   // The signed-in user info.
-    //   const user = result.user;
-    //   // ...
-    // })
-    // .catch((error) => {
-    //   // The AuthCredential type that was used.
-    //   const credential = GoogleAuthProvider.credentialFromError(error);
-    //   // ...
-    // });
+    signInWithPopup(auth, provider)
+      .then(loginSuccessful)
+      .catch((error) => {
+        console.log(error.code);
+      });
+  };
+
+  const loginSuccessful = (userCredential: UserCredential) => {
+    setErrorMessage('');
+    const user = {
+      email: userCredential.user.email ? userCredential.user.email : '',
+      uid: userCredential.user.uid,
+    };
+    navigation.replace('HomeScreen', { user });
   };
 
   return (
