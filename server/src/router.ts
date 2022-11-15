@@ -1,4 +1,4 @@
-import { Router, Request, Response, RequestHandler } from 'express';
+import { Router, RequestHandler } from 'express';
 import { getAllEvents, getProfile, postImageProfile } from './controllers';
 import { VerifyToken } from './middleware/VerifyToken';
 

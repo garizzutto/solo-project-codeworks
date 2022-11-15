@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import Event from '../models/Event';
 import User from '../models/User';
 
 export async function getAllEvents(req: Request, res: Response): Promise<void> {
