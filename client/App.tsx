@@ -10,19 +10,13 @@ import {
 } from '@react-navigation/stack';
 import { StackTypeParamList } from './types';
 import EventScreen from './screens/EventScreen';
-import { StyleSheet } from 'react-native';
 import NewEventScreen from './screens/NewEventScreen';
 import Header from './components/Header';
-import Icons from './components/Icons';
 import { useFonts } from 'expo-font';
 
 const Stack = createStackNavigator<StackTypeParamList>();
 
 export default function App() {
-  const headerBackImage = () => (
-    <Icons icon="angle-left" color="white" size={30} />
-  );
-
   const header = (props: StackHeaderProps) => <Header {...props} />;
 
   const [loaded] = useFonts({
@@ -54,12 +48,8 @@ export default function App() {
           name="EventScreen"
           component={EventScreen}
           options={{
-            // headerTransparent: true,
+            header: header,
             headerTitle: 'Title',
-            headerTitleStyle: styles.eventHeaderTitle,
-            headerTitleAlign: 'center',
-            headerBackImage: headerBackImage,
-            headerStyle: styles.eventHeader,
           }}
         />
         <Stack.Screen
@@ -73,14 +63,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  eventHeaderTitle: {
-    fontSize: 30,
-    fontFamily: 'Kanit-Regular',
-    color: '#fff',
-  },
-  eventHeader: {
-    backgroundColor: '#0741AD',
-  },
-});

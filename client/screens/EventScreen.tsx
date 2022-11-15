@@ -28,9 +28,9 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
   }, [navigation, event.title]);
 
   useEffect(() => {
-    console.log('Getting description');
-    if (event.id) {
-      getEvent(event.id).then((eventFetched) => {
+    console.log('Getting description', event._id);
+    if (event._id) {
+      getEvent(event._id).then((eventFetched) => {
         if (
           eventFetched &&
           eventFetched.description &&
@@ -38,12 +38,15 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
         ) {
           setDescription(eventFetched.description);
           setAttendees(eventFetched.attendees);
-          setIsAttending(attendees.some((uid) => uid === user.uid));
-          setNumberAttendees(attendees.length);
         }
       });
     }
-  }, [event.id, attendees, user]);
+  }, [event._id, isAttending]);
+
+  useEffect(() => {
+    setIsAttending(attendees.some((uid) => uid === user.uid));
+    setNumberAttendees(attendees.length);
+  }, [attendees, user]);
 
   const getDescriptiveDate = (date: string) => {
     const parsed =
@@ -56,11 +59,11 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
   const toggleAttending = async () => {
     if (isAttending) {
       const newAttendeesList = attendees.filter((uid) => uid !== user.uid);
-      await patchEventAttendees(event.id, newAttendeesList);
+      await patchEventAttendees(event._id, newAttendeesList);
       setAttendees(newAttendeesList);
     } else {
       const newAttendeesList = [...attendees, user.uid];
-      await patchEventAttendees(event.id, newAttendeesList);
+      await patchEventAttendees(event._id, newAttendeesList);
       setAttendees(newAttendeesList);
     }
   };

@@ -14,7 +14,7 @@ import { VerifyToken } from './middleware/VerifyToken';
 const route = Router();
 
 route.get('/events', getAllEvents as RequestHandler);
-route.get('/profiles/:uid', VerifyToken, getProfile as RequestHandler);
+route.get('/profiles/:uid', getProfile as RequestHandler);
 route.patch(
   '/profiles/:uid/image',
   VerifyToken,

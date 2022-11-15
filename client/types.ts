@@ -45,7 +45,7 @@ export type ProfileInfo = {
 };
 
 export type Event = NewEvent & {
-  id: string;
+  _id: string;
 };
 
 export type NewEvent = {

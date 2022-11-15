@@ -30,7 +30,9 @@ const Search = ({ handleEventClick }: Props) => {
         events={
           search === ''
             ? events
-            : events.filter((e) => e.title.includes(search))
+            : events.filter((e) =>
+                e.title.toLowerCase().includes(search.toLowerCase()),
+              )
         }
         horizontal={false}
         listHeaderComponent={<SearchBar handleSearch={handleSearch} />}

@@ -26,7 +26,7 @@ const Profile = ({ user }: { user: User }) => {
 
   useEffect(() => {
     setIsUploading(true);
-    getProfile(user).then((profile) => {
+    getProfile(user.uid).then((profile) => {
       if (profile && profile.profileImageUrl !== '') {
         setName(profile.name);
         setProfileImage(profile.profileImageUrl);

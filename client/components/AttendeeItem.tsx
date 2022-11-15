@@ -1,21 +1,26 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-
-const PROFILE_PICTURE =
-  'https://www.biography.com/.image/t_share/MTQzMjgyNDgwNjIxODIzNTU5/jennifer-lawrence_gettyimages-626382596jpg.jpg';
+import { getProfile } from '../ApiService';
 
 const AttendeeItem = ({ uid }: { uid: string }) => {
   const [picture, setPicture] = useState('');
   const [name, setName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // TODO: API call to get picture and name
-    console.log(uid);
-    setPicture(PROFILE_PICTURE);
-    setName('Jennifer Lawrence');
+    setIsLoading(true);
+    getProfile(uid).then((profile) => {
+      if (profile) {
+        setPicture(profile.profileImageUrl);
+        setName(profile.name);
+        setIsLoading(false);
+      }
+    });
   }, [uid]);
 
-  return (
+  return isLoading ? (
+    <ActivityIndicator style={styles.image} color="#0741AD" />
+  ) : (
     <View style={styles.container}>
       <Image
         source={picture !== '' ? { uri: picture } : {}}

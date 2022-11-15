@@ -1,9 +1,10 @@
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { StackHeaderProps } from '@react-navigation/stack';
 import Icons from './Icons';
+import { StackHeaderProps } from '@react-navigation/stack';
 
-const Header = ({ navigation }: StackHeaderProps) => {
+const Header = (props: StackHeaderProps) => {
+  const { navigation } = props;
   return (
     <View style={[styles.header]}>
       {navigation.canGoBack() ? (
@@ -15,10 +16,16 @@ const Header = ({ navigation }: StackHeaderProps) => {
         </TouchableOpacity>
       ) : null}
       <View style={styles.imageContainer}>
-        <Image
-          source={require('../assets/nameHeader.png')}
-          style={styles.image}
-        />
+        {props.options.headerTitle ? (
+          <Text style={styles.eventHeaderTitle}>
+            {props.options.headerTitle.toString()}
+          </Text>
+        ) : (
+          <Image
+            source={require('../assets/nameHeader.png')}
+            style={styles.image}
+          />
+        )}
       </View>
     </View>
   );
@@ -52,5 +59,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 10,
     bottom: 5,
+  },
+  eventHeaderTitle: {
+    fontSize: 30,
+    fontFamily: 'Kanit-Regular',
+    color: '#fff',
+    alignSelf: 'center',
   },
 });

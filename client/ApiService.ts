@@ -26,11 +26,11 @@ async function fetchData<T>(
   }
 }
 
-export async function getProfile(user: User) {
+export async function getProfile(uid: string) {
   const op: RequestInit = {
     method: 'GET',
   };
-  return await fetchData<ProfileInfo>(`/profiles/${user.uid}`, op, user.token);
+  return await fetchData<ProfileInfo>(`/profiles/${uid}`, op);
 }
 
 export async function patchProfileImage(user: User, imageUrl: string) {
