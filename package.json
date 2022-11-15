@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lintClient": "cd ./client && eslint .",
+    "lintServer": "cd ./server && eslint .",
     "prepare": "husky install",
     "test": "exit 0"
   },
