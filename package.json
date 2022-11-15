@@ -1,0 +1,28 @@
+{
+  "name": "solo-project-codeworks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lintClient": "cd ./client && eslint .",
+    "prepare": "husky install",
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garizzutto/solo-project-codeworks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garizzutto/solo-project-codeworks/issues"
+  },
+  "homepage": "https://github.com/garizzutto/solo-project-codeworks#readme",
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^3.2.0",
+    "eslint": "^8.27.0",
+    "eslint-plugin-json": "^3.1.0",
+    "husky": "^8.0.0"
+  }
+}

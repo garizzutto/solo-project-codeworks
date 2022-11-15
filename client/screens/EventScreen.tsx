@@ -29,7 +29,7 @@ const EVENT_DETAILS: Array<{ description: string; attendees: Array<string> }> =
     },
   ];
 
-const EventScreen = ({ navigation, route }: PropsEventScreen)=> {
+const EventScreen = ({ navigation, route }: PropsEventScreen) => {
   const { event, user } = route.params;
 
   const [description, setDescription] = useState('');
