@@ -61,11 +61,14 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
 
   const loginSuccessful = (userCredential: UserCredential) => {
     setErrorMessage('');
-    const user = {
-      email: userCredential.user.email ? userCredential.user.email : '',
-      uid: userCredential.user.uid,
-    };
-    navigation.replace('HomeScreen', { user });
+    userCredential.user.getIdToken().then((token) => {
+      const user = {
+        email: userCredential.user.email ? userCredential.user.email : '',
+        uid: userCredential.user.uid,
+        token,
+      };
+      navigation.replace('HomeScreen', { user });
+    });
   };
 
   return (

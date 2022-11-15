@@ -57,3 +57,6 @@ android/keystores/debug.keystore
 
 # macOS
 .DS_Store
+
+*.env
+**/config/*.json

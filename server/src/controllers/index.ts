@@ -13,8 +13,25 @@ export async function getAllEvents(req: Request, res: Response): Promise<void> {
 export async function getProfile(req: Request, res: Response): Promise<void> {
   try {
     const { uid } = req.params;
-    console.log(uid);
-    res.json(await User.find({ uid }));
+    const user = await User.findOne({ uid });
+    res.json({ profileImageUrl: user?.profileImageUrl, name: user?.name });
+  } catch (e) {
+    res.sendStatus(500);
+  }
+}
+
+export async function postImageProfile(
+  req: Request,
+  res: Response,
+): Promise<void> {
+  try {
+    const { uid } = req.params;
+    const user = await User.findOneAndUpdate(
+      { uid },
+      { profileImageUrl: req.body.imageUrl },
+    );
+    console.log(user);
+    res.json({ profileImageUrl: user?.profileImageUrl, name: user?.name });
   } catch (e) {
     res.sendStatus(500);
   }
