@@ -36,6 +36,7 @@ export type PropsNewEventScreen = NativeStackScreenProps<
 export type User = {
   email: string;
   uid: string;
+  profileImageUrl?: string;
 };
 
 export type Event = {
