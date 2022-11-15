@@ -1,15 +1,33 @@
 import { Router, RequestHandler } from 'express';
-import { getAllEvents, getProfile, postImageProfile } from './controllers';
+import {
+  getAllEvents,
+  getProfile,
+  patchProfileImage,
+  patchProfileName,
+  postUser,
+  postNewEvent,
+  getEvent,
+  patchEventAttendees,
+} from './controllers';
 import { VerifyToken } from './middleware/VerifyToken';
 
 const route = Router();
 
 route.get('/events', getAllEvents as RequestHandler);
-route.get('/profile/:uid', VerifyToken, getProfile as RequestHandler);
-route.post(
-  '/profile/:uid/image',
+route.get('/profiles/:uid', VerifyToken, getProfile as RequestHandler);
+route.patch(
+  '/profiles/:uid/image',
   VerifyToken,
-  postImageProfile as RequestHandler,
+  patchProfileImage as RequestHandler,
 );
+route.patch(
+  '/profiles/:uid/name',
+  VerifyToken,
+  patchProfileName as RequestHandler,
+);
+route.post('/users', postUser as RequestHandler);
+route.post('/events', postNewEvent as RequestHandler);
+route.get('/events/:id', getEvent as RequestHandler);
+route.patch('/events/:id/attendees', patchEventAttendees as RequestHandler);
 
 export default route;

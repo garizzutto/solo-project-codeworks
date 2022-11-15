@@ -17,6 +17,7 @@ import {
 } from 'firebase/auth';
 import * as WebBrowser from 'expo-web-browser';
 import { PropsLoginScreen } from '../types';
+import { postUser } from '../ApiService';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -37,7 +38,10 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
 
   const handleRegister = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then(loginSuccessful)
+      .then(async (userCredential) => {
+        await postUser(userCredential.user.email, userCredential.user.uid);
+        loginSuccessful(userCredential);
+      })
       .catch((error) => {
         console.log('Error register: ', error);
         const message = error.message.split('Firebase: ')[1].split(' (')[0];

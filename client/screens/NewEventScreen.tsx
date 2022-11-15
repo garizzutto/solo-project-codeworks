@@ -19,7 +19,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { uuidv4 } from '@firebase/util';
-import { PropsNewEventScreen } from '../types';
+import { NewEvent, PropsNewEventScreen } from '../types';
+import { postNewEvent } from '../ApiService';
 
 const NewEventScreen = ({ route, navigation }: PropsNewEventScreen) => {
   const [title, setTitle] = useState('');
@@ -85,7 +86,7 @@ const NewEventScreen = ({ route, navigation }: PropsNewEventScreen) => {
       const response = await fetch(image);
       const blob = await response.blob();
       const uuid = uuidv4();
-      const fileRef = ref(storage, uuid);
+      const fileRef = ref(storage, 'event/' + uuid);
       await uploadBytes(fileRef, blob);
       return { imageUuid: uuid, imageUrl: await getDownloadURL(fileRef) };
     } catch (error) {
@@ -119,18 +120,18 @@ const NewEventScreen = ({ route, navigation }: PropsNewEventScreen) => {
       return alert(error);
     }
     const imageInfo = await uploadImage();
-    // TODO: API call to sava data
-    const newEvent = {
-      imageUrl: imageInfo?.imageUrl,
-      imageUuid: imageInfo?.imageUuid,
-      title,
-      description,
-      timestamp: timestamp?.toISOString(),
-      location,
-      creator: route.params.user.uid,
-    };
-    console.log(newEvent);
-    navigation.goBack();
+    if (imageInfo && timestamp) {
+      const newEvent: NewEvent = {
+        imageUrl: imageInfo?.imageUrl,
+        title,
+        description,
+        timestamp: timestamp?.toISOString(),
+        location,
+        creator: route.params.user.uid,
+      };
+      await postNewEvent(newEvent);
+      navigation.goBack();
+    }
   };
 
   return (

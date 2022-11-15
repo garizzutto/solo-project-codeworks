@@ -29,11 +29,11 @@ const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
       return <Profile user={route.params.user} />;
     }
     if (tab === 'search') {
-      return (
-        <Search handleEventClick={handleEventClick} user={route.params.user} />
-      );
+      return <Search handleEventClick={handleEventClick} />;
     } else {
-      return <Home handleEventClick={handleEventClick} />;
+      return (
+        <Home handleEventClick={handleEventClick} uid={route.params.user.uid} />
+      );
     }
   };
 

@@ -44,7 +44,11 @@ export type ProfileInfo = {
   name: string;
 };
 
-export type Event = {
+export type Event = NewEvent & {
+  id: string;
+};
+
+export type NewEvent = {
   imageUrl: string;
   title: string;
   description?: string;
@@ -52,7 +56,6 @@ export type Event = {
   timestamp: string;
   location: string;
   creator: string;
-  id: string;
 };
 
 export type IconName = React.ComponentProps<typeof FontAwesome>['name'];

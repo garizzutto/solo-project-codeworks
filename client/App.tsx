@@ -20,7 +20,7 @@ const Stack = createStackNavigator<StackTypeParamList>();
 
 export default function App() {
   const headerBackImage = () => (
-    <Icons icon="angle-left" color="black" size={30} />
+    <Icons icon="angle-left" color="white" size={30} />
   );
 
   const header = (props: StackHeaderProps) => <Header {...props} />;
@@ -54,11 +54,12 @@ export default function App() {
           name="EventScreen"
           component={EventScreen}
           options={{
-            headerTransparent: true,
+            // headerTransparent: true,
             headerTitle: 'Title',
             headerTitleStyle: styles.eventHeaderTitle,
             headerTitleAlign: 'center',
             headerBackImage: headerBackImage,
+            headerStyle: styles.eventHeader,
           }}
         />
         <Stack.Screen
@@ -77,5 +78,9 @@ const styles = StyleSheet.create({
   eventHeaderTitle: {
     fontSize: 30,
     fontFamily: 'Kanit-Regular',
+    color: '#fff',
+  },
+  eventHeader: {
+    backgroundColor: '#0741AD',
   },
 });

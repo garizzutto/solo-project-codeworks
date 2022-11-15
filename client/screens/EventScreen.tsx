@@ -12,28 +12,13 @@ import Icons from '../components/Icons';
 import EventDetails from '../components/EventDetails';
 import moment from 'moment';
 import AttendeeList from '../components/AttendeeList';
-
-const EVENT_DETAILS: Array<{ description: string; attendees: Array<string> }> =
-  [
-    {
-      description:
-        'Com uma área verde de 1.584.000m², é um dos maiores circuitos culturais do mundo, com museus e auditórios de Oscar Niemeyer',
-      attendees: [
-        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
-        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
-        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
-        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
-        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
-        'Q5dpG83Y9eYcbZgkUjXuzd1Sxzt2',
-      ],
-    },
-  ];
+import { getEvent, patchEventAttendees } from '../ApiService';
 
 const EventScreen = ({ navigation, route }: PropsEventScreen) => {
   const { event, user } = route.params;
 
   const [description, setDescription] = useState('');
-  const [attendees, setAttendees] = useState(EVENT_DETAILS[0].attendees);
+  const [attendees, setAttendees] = useState<Array<string>>([]);
   const [isAttending, setIsAttending] = useState(false);
   const [numberAttendees, setNumberAttendees] = useState(0);
 
@@ -43,17 +28,22 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
   }, [navigation, event.title]);
 
   useEffect(() => {
-    // TODO: API call to get description
     console.log('Getting description');
-    setDescription(EVENT_DETAILS[0].description);
-  }, []);
-
-  useEffect(() => {
-    // TODO: API call to get atendees
-    console.log('Getting atendees');
-    setIsAttending(attendees.some((uid) => uid === user.uid));
-    setNumberAttendees(attendees.length);
-  }, [attendees, user]);
+    if (event.id) {
+      getEvent(event.id).then((eventFetched) => {
+        if (
+          eventFetched &&
+          eventFetched.description &&
+          eventFetched.attendees
+        ) {
+          setDescription(eventFetched.description);
+          setAttendees(eventFetched.attendees);
+          setIsAttending(attendees.some((uid) => uid === user.uid));
+          setNumberAttendees(attendees.length);
+        }
+      });
+    }
+  }, [event.id, attendees, user]);
 
   const getDescriptiveDate = (date: string) => {
     const parsed =
@@ -63,12 +53,15 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
     return parsed;
   };
 
-  const toggleAttending = () => {
-    // TODO: API call to set as attending or not
+  const toggleAttending = async () => {
     if (isAttending) {
-      setAttendees(attendees.filter((uid) => uid !== user.uid));
+      const newAttendeesList = attendees.filter((uid) => uid !== user.uid);
+      await patchEventAttendees(event.id, newAttendeesList);
+      setAttendees(newAttendeesList);
     } else {
-      setAttendees([...attendees, user.uid]);
+      const newAttendeesList = [...attendees, user.uid];
+      await patchEventAttendees(event.id, newAttendeesList);
+      setAttendees(newAttendeesList);
     }
   };
 
@@ -79,7 +72,7 @@ const EventScreen = ({ navigation, route }: PropsEventScreen) => {
         style={styles.image}
       />
       <ScrollView style={styles.bodyContainer}>
-        <TouchableOpacity onPress={toggleAttending}>
+        <TouchableOpacity onPress={async () => await toggleAttending()}>
           <View style={styles.attendContainer}>
             <View style={[styles.attendButton]}>
               <Text style={[styles.attendText, styles.bold]}>Going</Text>

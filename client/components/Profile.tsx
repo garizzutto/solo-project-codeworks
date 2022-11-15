@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { User } from '../types';
-import { getProfile, postProfileImage } from '../ApiService';
+import { getProfile, patchProfileImage, patchProfileName } from '../ApiService';
 import Icons from './Icons';
 import * as ImagePicker from 'expo-image-picker';
 import { uuidv4 } from '@firebase/util';
@@ -17,7 +17,7 @@ import { storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const Profile = ({ user }: { user: User }) => {
-  const [name, setName] = useState('Idris Elba');
+  const [name, setName] = useState('');
   const [profileImage, setProfileImage] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
   );
@@ -27,11 +27,11 @@ const Profile = ({ user }: { user: User }) => {
   useEffect(() => {
     setIsUploading(true);
     getProfile(user).then((profile) => {
-      setName(profile.name);
-      if (profile.profileImageUrl !== '') {
+      if (profile && profile.profileImageUrl !== '') {
+        setName(profile.name);
         setProfileImage(profile.profileImageUrl);
+        setIsUploading(false);
       }
-      setIsUploading(false);
     });
   }, [user]);
 
@@ -59,7 +59,7 @@ const Profile = ({ user }: { user: User }) => {
     if (newProfileImage !== '') {
       handleAddProfileImage().then((imageInfo) => {
         if (imageInfo) {
-          postProfileImage(user, imageInfo.imageUrl);
+          patchProfileImage(user, imageInfo.imageUrl);
           setIsUploading(false);
           setProfileImage(newProfileImage);
         }
@@ -67,8 +67,8 @@ const Profile = ({ user }: { user: User }) => {
     }
   }, [user, newProfileImage]);
 
-  const handleSave = () => {
-    // TODO: Save new password and edit personal data
+  const handleSave = async () => {
+    await patchProfileName(user, name);
   };
 
   const pickImage = async () => {
@@ -124,7 +124,10 @@ const Profile = ({ user }: { user: User }) => {
             editable={false}
           />
         </View>
-        <TouchableOpacity style={styles.personalData} onPress={handleSave}>
+        <TouchableOpacity
+          style={styles.personalData}
+          onPress={async () => await handleSave()}
+        >
           <Text style={[styles.save, styles.font]}>Save</Text>
         </TouchableOpacity>
       </View>
