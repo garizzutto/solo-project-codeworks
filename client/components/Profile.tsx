@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     marginTop: 10,
+    backgroundColor: '#e6f3fc',
   },
   profileImage: {
     height: 200,

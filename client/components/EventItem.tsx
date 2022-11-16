@@ -40,11 +40,13 @@ const styles = StyleSheet.create({
     height: 250,
     width: 300,
     margin: 10,
+    borderWidth: 0,
   },
   verticalContainer: {
     height: 350,
     width: '100%',
     marginVertical: 10,
+    borderWidth: 0,
   },
   image: {
     flex: 1,
@@ -78,10 +80,10 @@ const styles = StyleSheet.create({
   },
   shadow: {
     shadowColor: '#000',
-    shadowOffset: { width: 2, height: 2 },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 1,
-    elevation: 10,
+    elevation: 5,
   },
   font: {
     fontFamily: 'Kanit-Regular',

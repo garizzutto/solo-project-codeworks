@@ -4,7 +4,7 @@ import User from '../models/User';
 
 export async function getAllEvents(req: Request, res: Response): Promise<void> {
   try {
-    res.json(await Event.find());
+    res.json(await Event.find().sort({ timestamp: 'asc' }));
   } catch (e) {
     res.sendStatus(500);
   }
