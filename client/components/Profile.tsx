@@ -16,7 +16,7 @@ import { uuidv4 } from '@firebase/util';
 import { storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-const Profile = ({ user }: { user: User }) => {
+const Profile = ({ user, handleLogout }: Props) => {
   const [name, setName] = useState('');
   const [profileImage, setProfileImage] = useState(
     'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
@@ -130,6 +130,9 @@ const Profile = ({ user }: { user: User }) => {
         >
           <Text style={[styles.save, styles.font]}>Save</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.personalData} onPress={handleLogout}>
+          <Text style={[styles.save, styles.font]}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -200,3 +203,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Kanit-Regular',
   },
 });
+
+type Props = {
+  user: User;
+  handleLogout: () => void;
+};

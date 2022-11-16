@@ -7,6 +7,8 @@ import FooterIcon from '../components/FooterIcon';
 import Search from '../components/Search';
 import Icons from '../components/Icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { signOut } from 'firebase/auth/react-native';
+import { auth } from '../firebase';
 
 const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
   const [tab, setTab] = useState('home');
@@ -24,9 +26,14 @@ const HomeScreen = ({ route, navigation }: PropsHomeScreen) => {
     });
   };
 
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigation.replace('LoginScreen', {});
+  };
+
   const getSelectedTab = () => {
     if (tab === 'profile') {
-      return <Profile user={route.params.user} />;
+      return <Profile user={route.params.user} handleLogout={handleLogout} />;
     }
     if (tab === 'search') {
       return <Search handleEventClick={handleEventClick} />;
