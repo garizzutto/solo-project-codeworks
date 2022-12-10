@@ -7,7 +7,9 @@
     "lintClient": "cd ./client && eslint .",
     "lintServer": "cd ./server && eslint .",
     "prepare": "husky install",
-    "test": "exit 0"
+    "test": "exit 0",
+    "startClient": "cd ./client && npm start",
+    "startServer": "cd ./server && npm start"
   },
   "repository": {
     "type": "git",
