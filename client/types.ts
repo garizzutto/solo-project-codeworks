@@ -1,6 +1,6 @@
+import { FontAwesome } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { FontAwesome } from '@expo/vector-icons';
 
 export type StackTypeParamList = {
   LoginScreen: {};

@@ -1,7 +1,8 @@
+import { BASE_URL } from '@env';
 import { Event, NewEvent, ProfileInfo, User } from './types';
 
 // Localhost on web via ngrok
-const baseUrl = 'https://3bdd-201-93-22-193.sa.ngrok.io';
+const baseUrl = BASE_URL;
 
 async function fetchData<T>(
   route: string,
