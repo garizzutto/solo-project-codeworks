@@ -34,6 +34,8 @@ npm run startServer
 * [Firebase](https://firebase.google.com) - Authentication
 * [Express](https://expressjs.com/) - Nodejs framework for web applications
 * [Typescript](https://www.typescriptlang.org/) - Typed programming language that builds on JS
+* [MongoDB Atlas](https://www.mongodb.com/docs/atlas/) - Non relational (NOSQL) cloud database
+* [Mongoose](https://mongoosejs.com/) - ORM library for MongoDB
 
 ## Contributing
 Found something strange or not working? Please submit a pull request with your changes!
